@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>파일게시판 - 상세페이지</title>
+</head>
+<body>
+<div>
+	<div style="padding: 10px; text-align: center;">
+		<h1><a th:href="@{/fileBoard/list}" style="text-decoration: none;color: black;">상세 보기</a></h1>
+	</div>
+	<div style="
+    text-align: center;
+">
+		<div>
+			<br/>
+			<form role="form" th:object=${fileBoardVO} th:action="@{/fileBoard/list}" method="post">
+				<div>
+					<label style="font-weight: bolder;">제목</label>
+					<p th:text="${detail.title}"></p>
+					<input type="hidden" th:field="${detail.title}">
+				</div>
+				<div>
+					<label style="font-weight: bolder;">작성자</label>
+					<p th:text="${detail.writer}"></p>
+					<input type="hidden" th:field="${detail.writer}">
+				</div>
+				<div>
+					<label style="font-weight: bolder;">작성일자</label>
+					<p th:text="${detail.reg_date}"></p>
+				</div>
+				<div>
+					<label style="font-weight: bolder;display: block;">첨부파일</label>
+					<img style="
+    margin-top: 10px;
+    width: 12%;
+" th:src="@{/fileBoard/fileDown/{bno}(bno=${file.b_no})}" />
+					<p>
+						<a th:if="${file}" th:href="@{/fileBoard/fileDown/{bno}(bno=${file.b_no})}">
+							[[${file.fileoriginname}]]
+						</a>
+					</p>
+				</div>
+				<div>
+					<label style="font-weight: bolder;">내용</label>
+					<p th:text="${detail.content}"></p>
+					<input type="hidden" th:field="${detail.content}">
+				</div>
+				<div style="text-align: center;margin-top: 20px;">
+					<input type="submit" th:value="목록" th:formaction="@{/fileBoard/list}">
+					<input type="submit" th:value="수정" th:formaction="@{/fileBoard/update/{bno}(bno=${detail.b_no})}">
+					<input type="submit" th:value="삭제" th:formaction="@{/fileBoard/delete/{bno}(bno=${detail.b_no})}">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+</html>
